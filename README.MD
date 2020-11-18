@@ -20,7 +20,7 @@ There's nothing special about it, it just creates a `ConfigMap` with data that l
 ```yaml
   extensions.cli: |
     embed-server --std-out=echo  --server-config=standalone-openshift.xml
-    /subsystem=datasources/jdbc-driver=mariadb:add(driver-name=mariadb,driver-module-name=org.mariadb,driver-xa-datasource-class-name=org.mariadb.jdbc.MariaDbDataSource)
+    /subsystem=datasources/jdbc-driver=mariadb:add(driver-name=mariadb,driver-module-name=org.mariadb,driver-xa-datasource-class-name=org.mariadb.jdbc.MariaDbDataSource,driver-class-name=org.mariadb.jdbc.Driver)
     quit
   postconfigure.sh: |
     #!/usr/bin/env bash
