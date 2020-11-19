@@ -30,7 +30,7 @@ There's nothing special about it, it just creates a `ConfigMap` with data that l
 ```
 
 
-## Configure Datasource Settings
+## Configure Datasource Settings as Environment Variables
 
 Create a `ConfigMap` or `Secret` to inject `ENV` variables into your `deployment`/`deploymentconfig`.
 
@@ -46,4 +46,26 @@ data:
   DS1_CONNECTION_CHECKER: org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker
   DS1_EXCEPTION_SORTER: org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter
   DS1_NONXA: "true"
+```
+
+
+
+## Configure Datasource Settings as a Projected Environment File
+
+The implementation of this has some subtle differences.  Note the use of the `DATASOURCES` property, whereas the other method uses `DB_SERVICE_PREFIX_MAPPING` to create "short" names for the ENV properties.
+
+`DATASOURCES` takes a comma-separated list if you have multiple datasources to configure.
+
+```properties
+DATASOURCES=DS1
+DS1_JNDI=java:/example
+DS1_DRIVER=mariadb
+DS1_USERNAME=user
+DS1_PASSWORD=password
+DS1_MAX_POOL_SIZE=20
+DS1_MIN_POOL_SIZE=10
+DS1_CONNECTION_CHECKER=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker
+DS1_EXCEPTION_SORTER=org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter
+DS1_URL=jdbc:mariadb://mariadb.eap-demo.svc.cluster.local:3306/test
+DS1_NONXA=true
 ```
