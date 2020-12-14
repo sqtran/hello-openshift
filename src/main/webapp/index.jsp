@@ -1,4 +1,4 @@
-<%@ page import="java.sql.*, javax.sql.*, java.io.*, javax.naming.*, java.util.*" %>
+<%@ page import="java.sql.*, javax.sql.*, java.io.*, javax.naming.*, java.util.*, java.net.*" %>
 <html>
 <head>
 <title>Hello World!</title>
