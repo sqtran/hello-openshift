@@ -1,6 +1,6 @@
-# Simple Webapp
+# A Simple Webapp for OpenShift
 
-For Openshift S2I demos with a customized driver (MariaDB) with the OCP EAP builder image.
+This is a simple WAR application to demo deployments into OpenShift.
 
 
 ## Configure custom Drivers dynamically
