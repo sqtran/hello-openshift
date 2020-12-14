@@ -1,13 +1,37 @@
 <%@ page import="java.sql.*, javax.sql.*, java.io.*, javax.naming.*, java.util.*" %>
 <html>
 <head>
-<title>Hello World S2I</title>
+<title>Hello World!</title>
 </head>
-
 <body>
 	<h1>Hello World!</h1>
- 
-    MariaDB Results
+	<p>
+		It is now
+		<%= new java.util.Date() %></p>
+	<p>
+		You are coming from 
+		<%= request.getRemoteAddr()  %></p>
+	<p>
+		You are accessing  
+		<%= request.getLocalName()  %> (<%= request.getLocalAddr() %>)</p>
+
+	<h2>Environment Variables:</h2>
+
+	<table>
+	<tr style="text-align:left;">
+	<th>Key</th><th>Value</th>
+	</tr>
+	<%
+		Map<String, String> env = System.getenv();
+		for (String envName : env.keySet()) {
+	%>
+		<tr><td><%= envName %></td><td><%= env.get(envName) %></td></tr>
+	<%
+		}
+	%>
+	</table>
+
+	<h2> MariaDB Datasource </h2>
 	<p>
 	<table>
 		<tr>
@@ -17,7 +41,7 @@
 			<th>description</th>
 			<th>created_at</th>
 		</tr>
-	<%    
+	<%
 
 		Connection conn = null;
 		Statement st = null;
