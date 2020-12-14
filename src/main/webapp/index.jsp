@@ -13,7 +13,7 @@
 		<%= request.getRemoteAddr()  %></p>
 	<p>
 		You are accessing  
-		<%= request.getLocalName()  %> (<%= request.getLocalAddr() %>)</p>
+		<%= request.getLocalName()  %> (<%= request.getLocalAddr() %>) (<%= InetAddress.getLocalHost().getHostName() %>)</p>
 
 	<h2>Environment Variables:</h2>
 
