@@ -9,9 +9,7 @@
   <version>0.1</version>
   <packaging>war</packaging>
 
-  <name>demo Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <name>Demo Webapp</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
