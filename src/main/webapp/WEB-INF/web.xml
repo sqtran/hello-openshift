@@ -13,4 +13,14 @@
       <servlet-name>host-servlet</servlet-name>
       <url-pattern>/host</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>environment-servlet</servlet-name>
+    <jsp-file>/environment.jsp</jsp-file>
+  </servlet>
+
+  <servlet-mapping>
+      <servlet-name>environment-servlet</servlet-name>
+      <url-pattern>/environment</url-pattern>
+  </servlet-mapping>
 </web-app>
