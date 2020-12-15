@@ -3,4 +3,14 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 >
   <display-name>Archetype Created Web Application</display-name>
+
+  <servlet>
+    <servlet-name>host-servlet</servlet-name>
+    <jsp-file>/host.jsp</jsp-file>
+  </servlet>
+
+  <servlet-mapping>
+      <servlet-name>host-servlet</servlet-name>
+      <url-pattern>/host</url-pattern>
+  </servlet-mapping>
 </web-app>

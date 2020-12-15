@@ -1,7 +1,10 @@
 # A Simple Webapp for OpenShift
 
-This is a simple WAR application to demo deployments into OpenShift.
+This is a simple WAR application to demo deployments into OpenShift.  It also includes some EAP datasource configurations
 
+The application's root context is `/demo`
+
+A curl-friendly hostname checker is available at `/demo/host`
 
 ## Configure custom Drivers dynamically
 
