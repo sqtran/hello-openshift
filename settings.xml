@@ -1,0 +1,70 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+  <profiles>
+
+    <!-- Configure the JBoss GA Maven repository -->
+    <profile>
+      <id>steve-profile</id>
+      <repositories>
+        <repository>
+          <id>nexus-repo</id>
+          <url>https://nexus5-github-test.apps.shared-na4.na4.openshift.opentlc.com/repository/nexus-proxy</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </repository>
+      </repositories>
+
+
+      <pluginRepositories>
+        <pluginRepository>
+          <id>nexus-plugins-repo</id>
+          <url>https://nexus5-github-test.apps.shared-na4.na4.openshift.opentlc.com/repository/nexus-proxy</url>
+          <releases>
+            <enabled>true</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+
+    </profile>
+  </profiles>
+
+  <!-- Configure the Business Central repository -->
+  <servers>
+    <server>
+      <id>nexus-repo</id>
+      <username>user</username>
+      <password>user</password>
+    </server>
+    <server>
+      <id>nexus-plugins-repo</id>
+      <username>user</username>
+      <password>user</password>
+    </server>
+  </servers>
+
+  <activeProfiles>
+    <!-- Optionally, make the repositories active by default -->
+    <activeProfile>steve-profile</activeProfile>
+  </activeProfiles>
+
+  <mirrors>
+    <mirror>
+      <id>other-mirror</id>
+      <name>Other Mirror Repository</name>
+      <url>http://localhost</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror>
+  </mirrors>
+ 
+
+
+</settings>
