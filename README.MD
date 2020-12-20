@@ -20,6 +20,11 @@ This project contains several folders not found in a typical `Maven` project.  T
 Also note that `standalone-openshift.xml` replaces the default `standalone.xml` when running within OpenShift.  The OpenShift version is configured to do discovery and networking with OpenShift in mind, and probably won't work with other PaaS systems.
 
 
+## Prerequisites
+
+This application relies on having a database available.  Since we're running on OpenShift, I instantiated an emphermal MariaDB database, and used the SQL script `mariadb-sample.sql` to configure and populate the database with sample data.  You can use an existing database, but the values in the examples below will need to be adjusted accordingly.
+
+
 ## Configure Drivers Dynamically
 
 A folder named `extensions` is provided that contains some `jboss-cli` scripts to dynamically configure JDBC Drivers for use with Datasources.
