@@ -34,7 +34,7 @@
 	%>
 	</table>
 
-	<h2> MariaDB Datasource </h2>
+	<h2> java:/example datasource connection </h2>
 	<p>
 	<table>
 		<tr>

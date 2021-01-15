@@ -91,6 +91,23 @@ data:
   EXAMPLE_MARIADB_SERVICE_HOST: mariadb.<namespace>.svc.cluster.local
 ```
 
+And here's a PostgreSQL example if you don't want to just use the default drivers.
+```yaml
+data:
+  DB_SERVICE_PREFIX_MAPPING: example-psql=DS1
+  DS1_DRIVER: postgresql
+  DS1_JNDI: 'java:/example'
+  DS1_URL: jdbc:postgresql://postgresql.<namespace>.svc.cluster.local:5432/test
+  DS1_DATABASE: test
+  DS1_USERNAME: user
+  DS1_PASSWORD: password
+  DS1_CONNECTION_CHECKER: org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker
+  DS1_EXCEPTION_SORTER: org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter
+  DS1_NONXA: "true"
+  EXAMPLE_MARIADB_SERVICE_PORT: '5432'
+  EXAMPLE_MARIADB_SERVICE_HOST: postgresql.<namespace>.svc.cluster.local
+```
+Note that you can only use one or the other.  Both examples are configured to use the same `java:/example` JNDI name, so you have to give them both unique names, or just use one of them.  The code is only looking for `java:/example`.
 
 ### Option 2: Projected Environment File(s) into a Volume
 
