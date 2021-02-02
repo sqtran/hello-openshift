@@ -1,4 +1,4 @@
-# A Simple Webapp for OpenShift
+# A Simple Webapp for OpenShift, JBoss EAP, and S2I Builds
 
 This is a simple Web Archive (WAR) application to demonstrate deployments with OpenShift.
 
