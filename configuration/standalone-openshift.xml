@@ -109,7 +109,7 @@
 	    </logger>
 	    <!-- ##LOGGER-CATEGORY## -->
             <root-logger>
-                <level name="INFO"/>
+                <level name="${env.CUSTOM_LOG_LEVEL:INFO}"/>
                 <handlers>
                     <handler name="CONSOLE"/>
                 </handlers>
