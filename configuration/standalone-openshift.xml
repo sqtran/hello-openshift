@@ -142,6 +142,22 @@
         <subsystem xmlns="urn:jboss:domain:bean-validation:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:5.0">
             <datasources>
+
+                <datasource jta="true" jndi-name="java:/${env.DB_JNDI:nothing}" pool-name="initial-example" enabled="true" use-java-context="true" statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}"> 
+                    <connection-url>jdbc:mariadb://mariadb.hello-openshift72.svc.cluster.local:3306/test</connection-url> 
+                    <driver>mariadb</driver>
+                    <security> 
+                        <user-name>${env.DB_USERNAME:123}</user-name> 
+                        <password>${env.DB_PASSWORD:456}</password> 
+                    </security> 
+                    <validation> 
+                        <validate-on-match>true</validate-on-match> 
+                        <background-validation>false</background-validation> 
+                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLValidConnectionChecker"></valid-connection-checker> 
+                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.mysql.MySQLExceptionSorter"></exception-sorter> 
+                    </validation> 
+                </datasource>
+
                 <!-- ##DATASOURCES## -->
                 <drivers>
                     <driver name="h2" module="com.h2database.h2">
