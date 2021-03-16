@@ -13,7 +13,7 @@ It leverages several features from OpenShift's S2I build strategy, which allows 
 
 This project contains several folders not found in a typical `Maven` project.  The `jboss-eap72-openshift` automatically scans for and places contents of these folders into specific EAP locations.
 
-- modules/* gets placed in $JBOSS_HOME/modules 
+- modules/* gets placed in $JBOSS_HOME/modules
 - configuration/* copied to $JBOSS_HOME/standalone/configuration
 - deployments/* copied to $JBOSS_HOME/standalone/deployments
 
@@ -74,7 +74,7 @@ Here are two options for configuring datasources dynamically.
 
 You can dynamcially create Datasources at runtime by injecting Environment variables into your `Deployment`/`DeploymentConfig`.  The settings can be added via single values (env), or as all values from a `ConfigMap` or `Secret`.
 
-These are sample properties that a `ConfigMap` would need in order to configure a datasource. 
+These are sample properties that a `ConfigMap` would need in order to configure a datasource.
 ```yaml
 data:
   DB_SERVICE_PREFIX_MAPPING: example-mariadb=DS1
@@ -147,3 +147,9 @@ Everything I've demonstrated so far has been for dynamic configurations, but you
 You can use both static and dynamic configuration methods to fine tune your EAP instance.  Pass in your own standalone-openshift.xml file and use ENV variables or custom jboss-cli scripts to configure EAP the way that you need it.
 
 Note the placeholders throughout `standalone-openshift.xml` such as `<!-- ##DATASOURCES## -->` and `<!-- ##ELYTRON_KEY_STORE## -->`.  These are markers where the EAP base image inject calculated values, which are derived dynamically via built-in scripting.
+
+## Dynamic standalone-openshift.xml with ENV variables
+
+You can easily modify the existing `standalone-openshift.xml` with other runtime configurations with expression evalulations.  Through the configuration file, just reference an ENV variable with the `env.` prefix, and provide default values as needed.  This project has a sample setting for the logging level.  Set the ENV variable `CUSTOM_LOG_LEVEL` anywhere you choose to override the default value of INFO.  It would look like the following in the XML - `${env.CUSTOM_LOG_LEVEL:INFO}`.
+
+Note that not all properties in the XML support expressions.  A field like the data-source `pool-name` needs a static name that cannot be configured at runtime.
