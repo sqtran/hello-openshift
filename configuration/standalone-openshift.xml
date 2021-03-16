@@ -143,7 +143,7 @@
         <subsystem xmlns="urn:jboss:domain:datasources:5.0">
             <datasources>
 
-                <datasource jta="true" jndi-name="java:/${env.DB_JNDI:nothing}" pool-name="initial-example" enabled="true" use-java-context="true" statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}"> 
+                <datasource jta="true" jndi-name="java:/${env.DB_JNDI}" pool-name="initial-example" enabled="true" use-java-context="true" statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}"> 
                     <connection-url>jdbc:mariadb://mariadb.hello-openshift72.svc.cluster.local:3306/test</connection-url> 
                     <driver>mariadb</driver>
                     <security> 
