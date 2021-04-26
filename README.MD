@@ -2,9 +2,9 @@
 
 This is a simple Web Archive (WAR) application to demonstrate deployments with OpenShift.
 
-The application's root context is `/demo`
+The application's root context is `/hello`
 
-A curl-friendly hostname checker is available at `/demo/host`
+A curl-friendly hostname checker is available at `/hello/host`
 
 It leverages several features from OpenShift's S2I build strategy, which allows images to be built directly from source code, using the base image `jboss-eap72-openshift:1.1` from Red Hat.  Their base image includes built-in scripting that allows several core EAP configurations to be dynamically configured at runtime.
 
