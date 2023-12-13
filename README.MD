@@ -22,7 +22,9 @@ Also note that `standalone-openshift.xml` replaces the default `standalone.xml` 
 
 ## Prerequisites
 
-This application relies on having a database available.  Since we're running on OpenShift, I instantiated an emphermal MariaDB database, and used the SQL script `mariadb-sample.sql` to configure and populate the database with sample data.  You can use an existing database, but the values in the examples below will need to be adjusted accordingly.
+This application relies on having a database available.  Since we're running on OpenShift, I instantiated an ephemeral MariaDB database using the Kubernetes Template from the OpenShift Developer Catalog.  I used the SQL script `mariadb-sample.sql` to configure and populate the database with sample data.  You can use an existing database, but the values in the examples below will need to be adjusted accordingly.
+
+To quick and dirty way to execute the `mariadb-sample.sql` script is to just open a terminal to the pod, and just copy and paste the SQL commands into that terminal.
 
 
 ## Configure Drivers Dynamically
@@ -32,16 +34,21 @@ A folder named `extensions` is provided that contains some `jboss-cli` scripts t
 You can just run it via `oc` with the files provided in the extensions folder of this repo.
 
 ```bash
- oc create configmap jboss-cli --from-file=postconfigure.sh=extensions/postconfigure.sh --from-file=extensions.cli=extensions/extensions.cli
- ```
+oc create configmap jboss-cli --from-file=postconfigure.sh=extensions/postconfigure.sh --from-file=extensions.cli=extensions/extensions.cli
+```
 
 And then add it to your `DeploymentConfig`.  Don't forget to change `hello-openshift` to the actual name of your `DeploymentConfig`.
- ```bash
- oc set volume dc/hello-openshift --add --name=jboss-cli -m /opt/eap/extensions -t configmap --configmap-name=jboss-cli --default-mode='0755' --overwrite
- ```
+```bash
+oc set volume dc/hello-openshift --add --name=jboss-cli -m /opt/eap/extensions -t configmap --configmap-name=jboss-cli --default-mode='0755' --overwrite
+```
 
 There's nothing special about it, it just creates a `ConfigMap` with data that looks like this.  Look in the extensions folder to see for yourself.
 ```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jboss-cli
+data:
   extensions.cli: |
     embed-server --std-out=echo  --server-config=standalone-openshift.xml
     /subsystem=datasources/jdbc-driver=mariadb:add(driver-name=mariadb,driver-module-name=org.mariadb,driver-xa-datasource-class-name=org.mariadb.jdbc.MariaDbDataSource,driver-class-name=org.mariadb.jdbc.Driver)
@@ -59,10 +66,10 @@ When the pod restarts, you should see similar output at the top of the logs.
 + echo 'Executing postconfigure.sh'
 Executing postconfigure.sh
 + /opt/eap/bin/jboss-cli.sh --file=/opt/eap/extensions/extensions.cli
-[0m14:07:08,597 INFO  [org.jboss.modules] (CLI command executor) JBoss Modules version 1.8.8.Final-redhat-00001
-[0m[0m14:07:08,898 INFO  [org.jboss.msc] (CLI command executor) JBoss MSC version 1.4.5.Final-redhat-00001
-[0m[0m14:07:08,908 INFO  [org.jboss.threads] (CLI command executor) JBoss Threads version 2.3.2.Final-redhat-1
-[0m[0m14:07:09,498 INFO  [org.jboss.as] (MSC service thread 1-2) WFLYSRV0049: JBoss EAP 7.2.3.GA (WildFly Core 6.0.15.Final-redhat-00001) starting
+14:07:08,597 INFO  [org.jboss.modules] (CLI command executor) JBoss Modules version 1.8.8.Final-redhat-00001
+14:07:08,898 INFO  [org.jboss.msc] (CLI command executor) JBoss MSC version 1.4.5.Final-redhat-00001
+14:07:08,908 INFO  [org.jboss.threads] (CLI command executor) JBoss Threads version 2.3.2.Final-redhat-1
+14:07:09,498 INFO  [org.jboss.as] (MSC service thread 1-2) WFLYSRV0049: JBoss EAP 7.2.3.GA (WildFly Core 6.0.15.Final-redhat-00001) starting
 ```
 
 

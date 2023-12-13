@@ -1,5 +1,8 @@
 mysql -u root
 
+drop table if exists test;
+create database test;
+
 use test;
 CREATE user 'user'@'%' IDENTIFIED BY 'password';
 GRANT ALL PRIVILEGES ON * . * TO 'user'@'%';
