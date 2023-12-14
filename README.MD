@@ -116,7 +116,7 @@ data:
 ```
 Note that you can only use one or the other.  Both examples are configured to use the same `java:/example` JNDI name, so you have to give them both unique names, or just use one of them.  The code is only looking for `java:/example`.
 
-### Option 2: Projected Environment File(s) into a Volume
+### Option 2: Projected Properties File(s) into a Volume
 
 The implementation of this has some subtle differences.  Note the use of the `DATASOURCES` property, whereas the other method uses `DB_SERVICE_PREFIX_MAPPING` to create "short" names for the ENV properties.
 
@@ -160,3 +160,36 @@ Note the placeholders throughout `standalone-openshift.xml` such as `<!-- ##DATA
 You can easily modify the existing `standalone-openshift.xml` with other runtime configurations with expression evalulations.  Through the configuration file, just reference an ENV variable with the `env.` prefix, and provide default values as needed.  This project has a sample setting for the logging level.  Set the ENV variable `CUSTOM_LOG_LEVEL` anywhere you choose to override the default value of INFO.  It would look like the following in the XML - `${env.CUSTOM_LOG_LEVEL:INFO}`.
 
 Note that not all properties in the XML support expressions.  A field like the data-source `pool-name` needs a static name that cannot be configured at runtime.
+
+
+
+
+
+// FROM ccl TEMPLATE
+
+          volumes:
+          - configMap:
+              defaultMode: 420
+              name: nlog-config-${APP_NAME}
+            name: nlog-config-volume
+
+
+            volumeMounts:
+            - mountPath: /app/nlog.config
+              name: nlog-config-volume
+              subPath: nlog.config
+
+
+
+// what actually worked
+
+      volumes:
+        - name: db-config
+          configMap:
+            name: db-config
+            defaultMode: 420
+
+
+        volumeMounts:
+            - name: db-config
+              mountPath: /var/db.config
